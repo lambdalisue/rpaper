@@ -1,0 +1,12 @@
+[report]
+include =
+    src/rpaper/*.py
+    tests/*.py
+omit =
+    src/rpaper/__init__.py
+    src/rpaper/settings.py
+    src/rpaper/urls.py
+    src/rpaper/wsgi.py
+exclude_lines =
+    pragma: no cover
+    if __name__ == .__main__.:

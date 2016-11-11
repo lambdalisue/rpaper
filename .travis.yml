@@ -1,0 +1,14 @@
+sudo: false
+language: python
+python:
+  - 3.5
+
+install:
+  - pip install -r config/requirements-test.txt
+  - pip install coveralls
+
+script:
+  - script/test.sh
+
+after_success:
+  - coveralls

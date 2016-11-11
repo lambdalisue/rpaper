@@ -1,0 +1,4 @@
+.coverage
+dump.rdb
+db.sqlite3
+docs/_build

@@ -1,0 +1,10 @@
+pytz
+hashids
+pillow
+honcho
+django
+django-permission
+django-thumbnailfield
+django-redis-cache
+django-websocket-redis
+djangorestframework

@@ -1,0 +1,5 @@
+-rrequirements.txt
+factory_boy
+coverage
+flake8
+mypy-lang
