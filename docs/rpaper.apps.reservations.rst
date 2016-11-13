@@ -53,14 +53,6 @@ rpaper.apps.reservations.perms module
     :undoc-members:
     :show-inheritance:
 
-rpaper.apps.reservations.urls module
-------------------------------------
-
-.. automodule:: rpaper.apps.reservations.urls
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 
 Module contents
 ---------------
