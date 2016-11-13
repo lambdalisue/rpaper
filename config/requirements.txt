@@ -5,6 +5,7 @@ honcho
 django
 django-permission
 django-thumbnailfield
+django-roughpages
 django-redis-cache
 django-websocket-redis
 djangorestframework

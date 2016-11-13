@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'permission',
     'rest_framework',
+    'roughpages',
     'ws4redis',
     'rpaper.apps.reservations',
 ]
@@ -52,6 +53,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'rpaper.apps.reservations.middleware.ReservationCredentialMiddleware',
+    'roughpages.middleware.RoughpageFallbackMiddleware',
 ]
 
 ROOT_URLCONF = 'rpaper.urls'
