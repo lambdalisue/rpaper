@@ -1,0 +1,38 @@
+{
+  "name": "rpaper",
+  "version": "1.0.0",
+  "description": "rpaper",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lambdalisue/rpaper.git"
+  },
+  "author": "lambdalisue",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lambdalisue/rpaper/issues"
+  },
+  "homepage": "https://github.com/lambdalisue/rpaper",
+  "devDependencies": {
+    "babel-core": "^6.18.2",
+    "babel-loader": "^6.2.7",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-polyfill": "^6.16.0",
+    "babel-preset-es2015-riot": "^1.1.0",
+    "css-loader": "^0.25.0",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "postcss-cssnext": "^2.8.0",
+    "postcss-loader": "^1.1.1",
+    "riotjs-loader": "^3.0.0",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.13.3",
+    "whatwg-fetch": "^1.0.0"
+  }
+}

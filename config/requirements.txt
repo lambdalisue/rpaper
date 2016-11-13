@@ -1,6 +1,7 @@
 pytz
 hashids
 pillow
+pyyaml
 honcho
 django
 django-permission

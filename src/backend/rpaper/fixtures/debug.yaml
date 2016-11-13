@@ -1,0 +1,111 @@
+- model: auth.user
+  fields:
+    password: pbkdf2_sha256$30000$S961sO5Brq7e$WYVZK/5GiwsD/d38G2QJFNddHbATKAN2KIyh8fAcKcE=
+    last_login: 2016-11-13 18:13:48.637781+00:00
+    is_superuser: true
+    username: admin
+    first_name: ''
+    last_name: ''
+    email: admin@email.com
+    is_staff: true
+    is_active: true
+    date_joined: 2016-11-13 18:13:40.507461+00:00
+    groups: []
+    user_permissions: []
+- model: reservations.instrument
+  pk: g5GmnbBq
+  fields:
+    name: PlayStation 2
+    remarks: Do not play a game more than 2 hours!
+    thumbnail: ''
+    owner: [admin]
+    ipaddress: 127.0.0.1
+    created_at: 2016-11-13 18:14:22.580040+00:00
+    updated_at: 2016-11-13 18:14:32.503028+00:00
+- model: reservations.instrument
+  pk: O5kWxGN9
+  fields:
+    name: PlayStation 3
+    remarks: It's bad for you
+    thumbnail: ''
+    owner: [admin]
+    ipaddress: 127.0.0.1
+    created_at: 2016-11-13 18:14:49.198362+00:00
+    updated_at: 2016-11-13 18:14:57.453049+00:00
+- model: reservations.instrument
+  pk: 9qkZWGYE
+  fields:
+    name: PlayStation 4
+    remarks: Hey don't play a game more than 2 hours! Because I would like to play
+      a lot more!
+    thumbnail: ''
+    owner: [admin]
+    ipaddress: 127.0.0.1
+    created_at: 2016-11-13 18:15:36.052848+00:00
+    updated_at: 2016-11-13 18:15:36.052936+00:00
+- model: reservations.instrument
+  pk: g0GBYkB1
+  fields:
+    name: Xbox 360
+    remarks: Well...
+    thumbnail: ''
+    owner: [admin]
+    ipaddress: 127.0.0.1
+    created_at: 2016-11-13 18:15:59.950418+00:00
+    updated_at: 2016-11-13 18:15:59.950503+00:00
+- model: reservations.reservation
+  pk: g5GmnbBq
+  fields:
+    name: James
+    contact: '0001'
+    remarks: I need to finish my homework...
+    instrument: g5GmnbBq
+    owner: [admin]
+    start_at: 2016-11-13 18:16:35+00:00
+    end_at: 2016-11-13 20:16:37+00:00
+    credential: 689a5e94-4418-418a-b60b-9d5ea483da67
+    ipaddress: 127.0.0.1
+    created_at: 2016-11-13 18:16:43.521896+00:00
+    updated_at: 2016-11-13 18:16:43.521947+00:00
+- model: reservations.reservation
+  pk: O5kWxGN9
+  fields:
+    name: Peter
+    contact: '0002'
+    remarks: ''
+    instrument: g5GmnbBq
+    owner: [admin]
+    start_at: 2016-11-13 20:17:00+00:00
+    end_at: 2016-11-13 22:17:04+00:00
+    credential: 6de09b46-8d81-48ae-898b-d441ff3bfcb9
+    ipaddress: 127.0.0.1
+    created_at: 2016-11-13 18:17:09.178200+00:00
+    updated_at: 2016-11-13 18:17:09.178256+00:00
+- model: reservations.reservation
+  pk: 9qkZWGYE
+  fields:
+    name: Ted
+    contact: '0003'
+    remarks: ''
+    instrument: g5GmnbBq
+    owner: [admin]
+    start_at: 2016-11-13 12:17:25+00:00
+    end_at: 2016-11-13 16:17:30+00:00
+    credential: 80075419-0205-42a4-89a1-67f2ffea6d87
+    ipaddress: 127.0.0.1
+    created_at: 2016-11-13 18:17:34.705659+00:00
+    updated_at: 2016-11-13 18:17:34.705719+00:00
+- model: reservations.reservation
+  pk: g0GBYkB1
+  fields:
+    name: Alice
+    contact: 0009
+    remarks: ''
+    instrument: 9qkZWGYE
+    owner: [admin]
+    start_at: 2016-11-13 00:17:48+00:00
+    end_at: 2016-11-13 18:17:53+00:00
+    credential: eefd5341-a903-4622-b74b-7d1441d0307a
+    ipaddress: 127.0.0.1
+    created_at: 2016-11-13 18:17:56.294327+00:00
+    updated_at: 2016-11-13 18:17:56.294377+00:00

@@ -2,3 +2,5 @@
 dump.rdb
 db.sqlite3
 docs/_build
+node_modules
+static

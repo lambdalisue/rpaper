@@ -1,12 +1,12 @@
 [report]
 include =
-    src/rpaper/*.py
-    tests/*.py
+    src/backend/*.py
 omit =
-    src/rpaper/__init__.py
-    src/rpaper/settings.py
-    src/rpaper/urls.py
-    src/rpaper/wsgi.py
+    src/backend/manage.py
+    src/backend/rpaper/__init__.py
+    src/backend/rpaper/settings.py
+    src/backend/rpaper/urls.py
+    src/backend/rpaper/wsgi.py
 exclude_lines =
     pragma: no cover
     if __name__ == .__main__.:
