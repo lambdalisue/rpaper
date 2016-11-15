@@ -10,3 +10,4 @@ django-roughpages
 django-redis-cache
 django-websocket-redis
 djangorestframework
+django-filter

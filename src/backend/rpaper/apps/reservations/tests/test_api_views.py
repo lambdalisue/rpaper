@@ -1,4 +1,6 @@
+import datetime
 from operator import itemgetter, attrgetter
+from pytz import UTC
 from django.test import TestCase, override_settings
 from django.core.urlresolvers import reverse
 from rest_framework.test import APIClient
@@ -179,6 +181,92 @@ class ReservationAPIView(TestCase):
             list(sorted(map(itemgetter('pk'), response.data))),
             list(sorted(map(attrgetter('pk'), reservations[::2]))),
         )
+
+    def test_list_filter_since(self):
+        anchor = datetime.datetime(2014, 1, 1, 12, 0, 0, tzinfo=UTC)
+        d = lambda x: datetime.timedelta(hours=x)  # noqa: E731
+        r = lambda s, e: ReservationFactory(  # noqa: E731
+            instrument=self.instrument,
+            start_at=s,
+            end_at=e,
+        )
+        reservations = [
+            r(anchor+d(i), anchor+d(i+1))
+            for i in range(-48, 49)
+        ]
+        url = reverse(self.LIST_URL_NAME, kwargs=dict(
+            instrument_pk=self.instrument.pk,
+        ))
+        response = self.client.get(url, dict(
+            since=anchor.isoformat(),
+        ))
+        self.assertEqual(response.status_code, 200, response.data)
+        # end_at >= anchor : anchor + 49
+        self.assertEqual(len(response.data), 50)
+
+    def test_list_filter_until(self):
+        anchor = datetime.datetime(2014, 1, 1, 12, 0, 0, tzinfo=UTC)
+        d = lambda x: datetime.timedelta(hours=x)  # noqa: E731
+        r = lambda s, e: ReservationFactory(  # noqa: E731
+            instrument=self.instrument,
+            start_at=s,
+            end_at=e,
+        )
+        reservations = [
+            r(anchor+d(i), anchor+d(i+1))
+            for i in range(-48, 49)
+        ]
+        url = reverse(self.LIST_URL_NAME, kwargs=dict(
+            instrument_pk=self.instrument.pk,
+        ))
+        response = self.client.get(url, dict(
+            until=anchor.isoformat(),
+        ))
+        self.assertEqual(response.status_code, 200, response.data)
+        # start_at <= anchor : anchor + 48
+        self.assertEqual(len(response.data), 49)
+
+    def test_list_filter_since_until(self):
+        anchor = datetime.datetime(2014, 1, 1, 12, 0, 0, tzinfo=UTC)
+        d = lambda x: datetime.timedelta(hours=x)  # noqa: E731
+        r = lambda s, e: ReservationFactory(  # noqa: E731
+            instrument=self.instrument,
+            start_at=s,
+            end_at=e,
+        )
+        reservations = [
+            r(anchor+d(i), anchor+d(i+1))
+            for i in range(-48, 49)
+        ]
+        url = reverse(self.LIST_URL_NAME, kwargs=dict(
+            instrument_pk=self.instrument.pk,
+        ))
+        response = self.client.get(url, dict(
+            since=(anchor - d(5)).isoformat(),
+            until=(anchor + d(5)).isoformat(),
+        ))
+        self.assertEqual(response.status_code, 200, response.data)
+        # end_at >= anchor-5 and start_at >= anchor+5
+        #  +- start_at
+        #  |    +- end_at
+        #  |    |   +- Should include?
+        #  |    |   |
+        #  v    v   v
+        # -48  -47
+        # ...
+        #  -7   -6
+        #  -6   -5  *
+        # ...
+        #  -1    0  *
+        # <anchor>
+        #  +1   +2  *
+        # ...
+        #  +5   +6  *
+        #  +6   +7
+        # ...
+        # +47  +48
+        #
+        self.assertEqual(len(response.data), 12)
 
     def test_detail(self):
         reservation = ReservationFactory(instrument=self.instrument)

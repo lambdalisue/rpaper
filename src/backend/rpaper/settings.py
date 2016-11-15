@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'permission',
     'rest_framework',
+    'django_filters',
     'roughpages',
     'ws4redis',
     'rpaper.apps.reservations',
@@ -174,3 +175,10 @@ WEBSOCKET_URL = '/ws/'
 
 if DEBUG:
     WSGI_APPLICATION = 'ws4redis.django_runserver.application'
+
+# djangorestframework
+REST_FRAMEWORK = {
+    'DEFAULT_FILTER_BACKENDS': (
+        'django_filters.rest_framework.DjangoFilterBackend',
+    ),
+}

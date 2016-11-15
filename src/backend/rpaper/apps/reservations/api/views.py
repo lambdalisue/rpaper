@@ -20,6 +20,7 @@ from ..models import (
     Instrument,
     Reservation,
 )
+from ..filters import ReservationFilter
 
 
 class DjangoObjectPermissionsOrAnonReadOnly(DjangoObjectPermissions):
@@ -80,6 +81,7 @@ class ReservationListCreateAPIView(ReservationAPIViewMixin,
     permission_classes = (
         DjangoModelPermissionsOrAnonReadOnly,
     )
+    filter_class = ReservationFilter
 
     def perform_create(self, serializer):
         user = self.request.user
