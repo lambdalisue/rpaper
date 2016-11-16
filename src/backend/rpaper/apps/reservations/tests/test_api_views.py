@@ -35,7 +35,7 @@ class InstrumentAPIView(TestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, 200, response.data)
         self.assertEqual(list(response.data.keys()), [
-            'pk', 'name', 'remarks', 'thumbnail', 'owner', 'reservations',
+            'pk', 'name', 'remarks', 'thumbnail', 'owner',
         ])
         self.assertEqual(response.data['pk'], instrument.pk)
 
@@ -51,7 +51,7 @@ class InstrumentAPIView(TestCase):
         instrument = Instrument.objects.last()
         self.assertEqual(response.status_code, 201, response.data)
         self.assertEqual(list(response.data.keys()), [
-            'pk', 'name', 'remarks', 'thumbnail', 'owner', 'reservations',
+            'pk', 'name', 'remarks', 'thumbnail', 'owner',
         ])
         self.assertEqual(response.data['pk'], instrument.pk)
 
@@ -86,7 +86,7 @@ class InstrumentAPIView(TestCase):
         instrument_updated = Instrument.objects.last()
         self.assertEqual(response.status_code, 200, response.data)
         self.assertEqual(list(response.data.keys()), [
-            'pk', 'name', 'remarks', 'thumbnail', 'owner', 'reservations',
+            'pk', 'name', 'remarks', 'thumbnail', 'owner',
         ])
         self.assertEqual(response.data['pk'], instrument_updated.pk)
         self.assertEqual(response.data['pk'], instrument.pk)

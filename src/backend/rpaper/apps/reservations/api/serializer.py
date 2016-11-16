@@ -57,9 +57,7 @@ class InstrumentSerializer(serializers.ModelSerializer):
             'remarks',
             'thumbnail',
             'owner',
-            'reservations',
         )
 
     pk = serializers.RegexField('\w+', read_only=True)
     owner = UserSerializer(many=False, read_only=True)
-    reservations = ReservationSerializer(many=True, read_only=True)
