@@ -29,4 +29,8 @@ urlpatterns = [
         'rpaper.apps.reservations.api.urls',
         namespace='reservations-api',
     )),
+    url(r'', include(
+        'rpaper.apps.reservations.urls',
+        namespace='reservations',
+    )),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

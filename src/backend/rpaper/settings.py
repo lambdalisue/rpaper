@@ -65,7 +65,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'templates'),
+            os.path.join(ROOT_DIR, 'src', 'templates'),
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -103,7 +103,7 @@ AUTHENTICATION_BACKENDS = (
 )
 
 FIXTURE_DIRS = [
-    os.path.join(BASE_DIR, 'fixtures'),
+    os.path.join(ROOT_DIR, 'src', 'fixtures'),
 ]
 
 # Password validation

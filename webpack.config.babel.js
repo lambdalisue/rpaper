@@ -5,6 +5,7 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 const DEBUG = !process.argv.includes('--release');
 const VERBOSE = process.argv.includes('--verbose');
 
+
 export default {
   cache: DEBUG,
   debug: DEBUG,
@@ -29,9 +30,9 @@ export default {
       'whatwg-fetch',
     ],
 
-    'index': [
-      'tag/app',
-      'css/index',
+    'instrument': [
+      'js/main',
+      'js/views/instrument',
     ],
   },
 
@@ -48,7 +49,7 @@ export default {
       path.join(__dirname, 'node_modules'),
       path.join(__dirname, 'src/frontend'),
     ],
-    extensions: ['', '.js', '.tag', '.css'],
+    extensions: ['', '.js', '.tag', '.css', '.less'],
   },
 
   module: {
@@ -66,7 +67,14 @@ export default {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract(
           'style',
-          'css?importLoaders=1!postcss'
+          'css'
+        ),
+      },
+      {
+        test: /\.less$/,
+        loader: ExtractTextPlugin.extract(
+          'style',
+          'css!less'
         ),
       },
       {
@@ -82,10 +90,12 @@ export default {
 
   plugins: [
     new ExtractTextPlugin('css/[name].css'),
+    new webpack.ProvidePlugin({
+      riot: 'riot',
+    }),
     new webpack.optimize.OccurenceOrderPlugin(),
-  ],
-
-  postcss: [
-    require('postcss-cssnext'),
+    new webpack.ContextReplacementPlugin(
+      /moment[\/\\]locale$/, /ja/
+    ),
   ],
 };

@@ -8,7 +8,6 @@
 {% endblock %}
 
 <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
-<script defer src="//cdn.jsdelivr.net/riot/2.3/riot.min.js"></script>
 <script defer src="{{ STATIC_URL }}js/common.js"></script>
 {% block scripts %}
 {% endblock %}
@@ -18,9 +17,5 @@
 
 {% block post-scripts %}
 {% endblock %}
-<script>
-  document.addEventListener("DOMContentLoaded", function(event) {
-    riot.mount('*');
-  });
-</script>
+
 {% endspaceless %}
