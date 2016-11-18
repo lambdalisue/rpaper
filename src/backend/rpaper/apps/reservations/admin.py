@@ -1,13 +1,13 @@
 from django.contrib import admin
 from rpaper.core.utils import get_client_ip
 from .models import (
-    Instrument,
-    Reservation,
+    Thing,
+    Record,
 )
 
 
-@admin.register(Instrument)
-class InstrumentAdmin(admin.ModelAdmin):
+@admin.register(Thing)
+class ThingAdmin(admin.ModelAdmin):
     readonly_fields = ('pk', 'owner')
 
     def save_model(self, request, obj, form, change):
@@ -18,8 +18,8 @@ class InstrumentAdmin(admin.ModelAdmin):
         obj.save()
 
 
-@admin.register(Reservation)
-class ReservationAdmin(admin.ModelAdmin):
+@admin.register(Record)
+class RecordAdmin(admin.ModelAdmin):
     readonly_fields = ('pk', 'owner')
 
     def save_model(self, request, obj, form, change):

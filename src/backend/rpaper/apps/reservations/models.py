@@ -13,24 +13,24 @@ from rpaper.core.utils import validate_on_save
 from rpaper.core.fields.hashids import HashidsField
 
 
-class Instrument(models.Model):
+class Thing(models.Model):
     hashid = HashidsField(
         verbose_name=_('Hashids'),
         primary_key=True,
-        hashids_salt="%s:reservations:instrument" % settings.HASHIDS_SOLT,
+        hashids_salt="%s:reservations:thing" % settings.HASHIDS_SOLT,
         hashids_min_length=8,
     )
     name = models.CharField(_('Name'), max_length=255)
     remarks = models.TextField(_("Remarks"), blank=True)
     thumbnail = ThumbnailField(
         _("Thumbnail"),
-        upload_to="reservations/instrument/thumbnails",
+        upload_to="reservations/thing/thumbnails",
         blank=True,
     )
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         verbose_name=_("Owner"),
-        related_name="instruments",
+        related_name="things",
         editable=False,
     )
 
@@ -44,40 +44,40 @@ class Instrument(models.Model):
     updated_at = models.DateTimeField(_("Modified at"), auto_now=True)
 
     class Meta:
-        verbose_name = _("Instrument")
-        verbose_name_plural = _("Instruments")
+        verbose_name = _("Thing")
+        verbose_name_plural = _("Things")
 
     def __str__(self):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('reservations:instruments-detail', kwargs=dict(
+        return reverse('reservations:things-detail', kwargs=dict(
             pk=self.pk,
         ))
 
 
-class ReservationManager(models.Manager):
-    """A management class of Reservation model"""
+class RecordManager(models.Manager):
+    """A management class of Record model"""
 
-    def _may_collide_with(self, reservation):
-        # There is no reservation which time span is greater than threshold
+    def _may_collide_with(self, record):
+        # There is no record which time span is greater than threshold
         return self.filter(
-            instrument=reservation.instrument,
-            start_at__gt=reservation.start_at - Reservation.TIMESPAN_THRESHOLD,
-            end_at__lt=reservation.end_at + Reservation.TIMESPAN_THRESHOLD,
+            thing=record.thing,
+            start_at__gt=record.start_at - Record.TIMESPAN_THRESHOLD,
+            end_at__lt=record.end_at + Record.TIMESPAN_THRESHOLD,
         )
 
-    def collide_with(self, reservation):
-        """Return reservations queryset which collide with a reservation"""
-        qs = self._may_collide_with(reservation)
-        reservation_ids = (
-            r.pk for r in qs if reservation.is_collided(r)
+    def collide_with(self, record):
+        """Return records queryset which collide with a record"""
+        qs = self._may_collide_with(record)
+        record_ids = (
+            r.pk for r in qs if record.is_collided(r)
         )
-        return self.filter(pk__in=reservation_ids)
+        return self.filter(pk__in=record_ids)
 
 
 @validate_on_save
-class Reservation(models.Model):
+class Record(models.Model):
     TIMESPAN_MAX_HOURS = 24
     TIMESPAN_THRESHOLD = datetime.timedelta(
         hours=TIMESPAN_MAX_HOURS
@@ -86,22 +86,22 @@ class Reservation(models.Model):
     hashid = HashidsField(
         verbose_name=_("Hashid"),
         primary_key=True,
-        hashids_salt="%s:reservations:reservation" % settings.HASHIDS_SOLT,
+        hashids_salt="%s:reservations:record" % settings.HASHIDS_SOLT,
         hashids_min_length=8,
     )
     name = models.CharField(_('Name'), max_length=255)
     contact = models.CharField(_('Contact'), max_length=255)
     remarks = models.TextField(_("Remarks"), blank=True)
 
-    instrument = models.ForeignKey(
-        Instrument,
-        verbose_name=_("Instrument"),
-        related_name="reservations",
+    thing = models.ForeignKey(
+        Thing,
+        verbose_name=_("Thing"),
+        related_name="records",
     )
     owner = models.ForeignKey(
         settings.AUTH_USER_MODEL,
         verbose_name=_("Owner"),
-        related_name="reservations",
+        related_name="records",
         editable=False,
         blank=True,
         null=True,
@@ -124,11 +124,11 @@ class Reservation(models.Model):
     created_at = models.DateTimeField(_("Created at"), auto_now_add=True)
     updated_at = models.DateTimeField(_("Modified at"), auto_now=True)
 
-    objects = ReservationManager()
+    objects = RecordManager()
 
     class Meta:
-        verbose_name = _("Reservation")
-        verbose_name_plural = _("Reservations")
+        verbose_name = _("Record")
+        verbose_name_plural = _("Records")
         ordering = (
             'start_at',
             'end_at',
@@ -144,7 +144,7 @@ class Reservation(models.Model):
         )
 
     def is_collided(self, other):
-        """Return if the reservation is collided with other"""
+        """Return if the record is collided with other"""
         if self.end_at <= other.start_at or other.end_at <= self.start_at:
             return False
         return True
@@ -183,10 +183,10 @@ class Reservation(models.Model):
             )
 
     def _validate_collision(self):
-        qs = Reservation.objects.collide_with(self)
+        qs = Record.objects.collide_with(self)
         if qs.count() > 0:
             raise ValidationError(
-                _("The reservation collide with %(reservation)s"),
+                _("The record collide with %(record)s"),
                 code='invalid',
-                params={'reservation': qs.first()},
+                params={'record': qs.first()},
             )

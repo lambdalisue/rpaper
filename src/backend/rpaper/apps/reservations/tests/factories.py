@@ -4,8 +4,8 @@ import factory.fuzzy
 from pytz import UTC
 from django.contrib.auth.models import User
 from ..models import (
-    Instrument,
-    Reservation,
+    Thing,
+    Record,
 )
 
 
@@ -20,23 +20,23 @@ class UserFactory(factory.DjangoModelFactory):
     password = factory.Faker('password')
 
 
-class InstrumentFactory(factory.DjangoModelFactory):
+class ThingFactory(factory.DjangoModelFactory):
 
     class Meta:
-        model = Instrument
+        model = Thing
 
     name = factory.Faker('word')
     owner = factory.SubFactory(UserFactory)
 
 
-class ReservationFactory(factory.DjangoModelFactory):
+class RecordFactory(factory.DjangoModelFactory):
 
     class Meta:
-        model = Reservation
+        model = Record
 
     name = factory.Faker('name')
     contact = factory.Faker('email')
-    instrument = factory.SubFactory(InstrumentFactory)
+    thing = factory.SubFactory(ThingFactory)
 
     start_at = factory.fuzzy.FuzzyDateTime(
         datetime.datetime(2008, 1, 1, tzinfo=UTC),      # type: ignore

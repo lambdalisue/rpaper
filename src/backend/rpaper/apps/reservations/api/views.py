@@ -12,15 +12,15 @@ from rest_framework.generics import (
 )
 from rpaper.core.utils import get_client_ip
 from .serializer import (
-    InstrumentSerializer,
-    ReservationSerializer,
-    ReservationSerializerWithCredential,
+    ThingSerializer,
+    RecordSerializer,
+    RecordSerializerWithCredential,
 )
 from ..models import (
-    Instrument,
-    Reservation,
+    Thing,
+    Record,
 )
-from ..filters import ReservationFilter
+from ..filters import RecordFilter
 
 
 class DjangoObjectPermissionsOrAnonReadOnly(DjangoObjectPermissions):
@@ -37,12 +37,12 @@ class DjangoObjectPermissionsOrAnonReadOnly(DjangoObjectPermissions):
         return super().has_object_permission(request, view, obj)
 
 
-class InstrumentAPIViewMixin:
-    serializer_class = InstrumentSerializer
-    queryset = Instrument.objects.all()
+class ThingAPIViewMixin:
+    serializer_class = ThingSerializer
+    queryset = Thing.objects.all()
 
 
-class InstrumentCreateAPIView(InstrumentAPIViewMixin, CreateAPIView):
+class ThingCreateAPIView(ThingAPIViewMixin, CreateAPIView):
     permission_classes = (
         DjangoModelPermissions,
     )
@@ -55,51 +55,51 @@ class InstrumentCreateAPIView(InstrumentAPIViewMixin, CreateAPIView):
         )
 
 
-class InstrumentRetrieveUpdateDestroyAPIView(InstrumentAPIViewMixin,
-                                             RetrieveUpdateDestroyAPIView):
+class ThingRetrieveUpdateDestroyAPIView(ThingAPIViewMixin,
+                                        RetrieveUpdateDestroyAPIView):
     permission_classes = (
         DjangoObjectPermissionsOrAnonReadOnly,
     )
 
 
-class ReservationAPIViewMixin:
-    serializer_class = ReservationSerializer
+class RecordAPIViewMixin:
+    serializer_class = RecordSerializer
 
-    def get_instrument(self):
-        instrument_pk = self.kwargs['instrument_pk']
-        return get_object_or_404(Instrument, pk=instrument_pk)
+    def get_thing(self):
+        thing_pk = self.kwargs['thing_pk']
+        return get_object_or_404(Thing, pk=thing_pk)
 
     def get_queryset(self):
-        return Reservation.objects.filter(
-            instrument=self.get_instrument(),
+        return Record.objects.filter(
+            thing=self.get_thing(),
         )
 
 
-class ReservationListCreateAPIView(ReservationAPIViewMixin,
-                                   ListCreateAPIView):
-    queryset = Instrument.objects.all()
+class RecordListCreateAPIView(RecordAPIViewMixin,
+                              ListCreateAPIView):
+    queryset = Thing.objects.all()
     permission_classes = (
         DjangoModelPermissionsOrAnonReadOnly,
     )
-    filter_class = ReservationFilter
+    filter_class = RecordFilter
 
     def perform_create(self, serializer):
         user = self.request.user
         serializer.save(
             owner=(user if user.is_authenticated() else None),
             ipaddress=get_client_ip(self.request),
-            instrument=self.get_instrument(),
+            thing=self.get_thing(),
         )
 
     def get_serializer_class(self):
         if self.request.method == 'POST':
             # Return 'credential' when the object has created
-            return ReservationSerializerWithCredential
-        return ReservationSerializer
+            return RecordSerializerWithCredential
+        return RecordSerializer
 
 
-class ReservationRetrieveUpdateDestroyAPIView(ReservationAPIViewMixin,
-                                              RetrieveUpdateDestroyAPIView):
+class RecordRetrieveUpdateDestroyAPIView(RecordAPIViewMixin,
+                                         RetrieveUpdateDestroyAPIView):
     permission_classes = (
         DjangoObjectPermissionsOrAnonReadOnly,
     )
@@ -107,5 +107,5 @@ class ReservationRetrieveUpdateDestroyAPIView(ReservationAPIViewMixin,
     def get_serializer_class(self):
         if self.request.method == 'PUT':
             # Return 'credential' when the object has updated
-            return ReservationSerializerWithCredential
-        return ReservationSerializer
+            return RecordSerializerWithCredential
+        return RecordSerializer

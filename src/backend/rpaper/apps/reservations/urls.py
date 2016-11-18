@@ -1,10 +1,10 @@
 from django.conf.urls import url
 
-from .views import InstrumentDetailView
+from .views import ThingDetailView
 
 
 urlpatterns = [
-    url(r'^instrument/(?P<pk>\w+)/$',
-        InstrumentDetailView.as_view(),
-        name='reservations-instrument'),
+    url(r'^(?P<pk>\w+)/$',
+        ThingDetailView.as_view(),
+        name='reservations-thing'),
 ]

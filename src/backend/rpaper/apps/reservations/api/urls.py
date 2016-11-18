@@ -2,26 +2,26 @@ from django.conf.urls import url
 from rest_framework.urlpatterns import format_suffix_patterns
 
 from .views import (
-    InstrumentCreateAPIView,
-    InstrumentRetrieveUpdateDestroyAPIView,
-    ReservationListCreateAPIView,
-    ReservationRetrieveUpdateDestroyAPIView,
+    ThingCreateAPIView,
+    ThingRetrieveUpdateDestroyAPIView,
+    RecordListCreateAPIView,
+    RecordRetrieveUpdateDestroyAPIView,
 )
 
 
 urlpatterns = [
-    url(r'^instruments/$',
-        InstrumentCreateAPIView.as_view(),
-        name='instruments-list'),
-    url(r'^instruments/(?P<pk>\w+)/$',
-        InstrumentRetrieveUpdateDestroyAPIView.as_view(),
-        name='instruments-detail'),
-    url(r'^instruments/(?P<instrument_pk>\w+)/reservations/$',
-        ReservationListCreateAPIView.as_view(),
-        name='reservations-list'),
-    url(r'^instruments/(?P<instrument_pk>\w+)/reservations/(?P<pk>\w+)/$',
-        ReservationRetrieveUpdateDestroyAPIView.as_view(),
-        name='reservations-detail'),
+    url(r'^$',
+        ThingCreateAPIView.as_view(),
+        name='things-list'),
+    url(r'^(?P<pk>\w+)/$',
+        ThingRetrieveUpdateDestroyAPIView.as_view(),
+        name='things-detail'),
+    url(r'^(?P<thing_pk>\w+)/records/$',
+        RecordListCreateAPIView.as_view(),
+        name='records-list'),
+    url(r'^(?P<thing_pk>\w+)/records/(?P<pk>\w+)/$',
+        RecordRetrieveUpdateDestroyAPIView.as_view(),
+        name='records-detail'),
 ]
 
 urlpatterns = format_suffix_patterns(urlpatterns, allowed=['json', 'html'])

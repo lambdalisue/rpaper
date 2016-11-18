@@ -1,8 +1,8 @@
 from permission.logics import PermissionLogic
-from .middleware import get_reservation_credential
+from .middleware import get_record_credential
 
 
-class InstrumentPermissionLogic(PermissionLogic):
+class ThingPermissionLogic(PermissionLogic):
     def has_perm(self, user_obj, perm, obj=None):
         add_permission = self.get_full_permission_string('add')
         change_permission = self.get_full_permission_string('change')
@@ -15,7 +15,7 @@ class InstrumentPermissionLogic(PermissionLogic):
         return obj.owner == user_obj
 
 
-class ReservationPermissionLogic(PermissionLogic):
+class RecordPermissionLogic(PermissionLogic):
     def has_perm(self, user_obj, perm, obj=None):
         add_permission = self.get_full_permission_string('add')
         change_permission = self.get_full_permission_string('change')
@@ -32,10 +32,10 @@ class ReservationPermissionLogic(PermissionLogic):
             # DO NOT FALLBACK TO 'CREDENTIAL' WAY.
             # As I explained below, the 'credential' way has a security risk.
             # So I would like to prepare 'a secure way' for an authenticated
-            # user. If a reservation has made by an authenticated user, the
-            # reservation SHOULD ONLY BE modifiable by that authenticated user.
+            # user. If a record has made by an authenticated user, the
+            # record SHOULD ONLY BE modifiable by that authenticated user.
             # In this case, if the user logged out, even users who share the
-            # same web-browser cannot touch the reservation unless he/she have
+            # same web-browser cannot touch the record unless he/she have
             # a way to logged in as that user.
             return obj.owner == user_obj
         # NOTE:
@@ -45,14 +45,14 @@ class ReservationPermissionLogic(PermissionLogic):
         # 'credential' of other's if he/she have enough skill to dig.
         # However, while the target of this service is a real object in a real
         # world, what he/she can do with a 'credential' is removing/updating
-        # the reservation and the advantage he/she can get is not so valuable.
+        # the record and the advantage he/she can get is not so valuable.
         # So that I just decided to ignore this security risk for an anonyomous
         # user.
-        credential = get_reservation_credential()
+        credential = get_record_credential()
         return credential and str(obj.credential) == credential
 
 
 PERMISSION_LOGICS = (
-    ('reservations.Instrument', InstrumentPermissionLogic()),
-    ('reservations.Reservation', ReservationPermissionLogic()),
+    ('reservations.Thing', ThingPermissionLogic()),
+    ('reservations.Record', RecordPermissionLogic()),
 )

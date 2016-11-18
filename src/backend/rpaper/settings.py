@@ -55,7 +55,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'rpaper.apps.reservations.middleware.ReservationCredentialMiddleware',
+    'rpaper.apps.reservations.middleware.RecordCredentialMiddleware',
     'roughpages.middleware.RoughpageFallbackMiddleware',
 ]
 

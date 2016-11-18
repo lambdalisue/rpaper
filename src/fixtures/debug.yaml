@@ -12,7 +12,7 @@
     date_joined: 2016-11-13 18:13:40.507461+00:00
     groups: []
     user_permissions: []
-- model: reservations.instrument
+- model: reservations.thing
   pk: g5GmnbBq
   fields:
     name: PlayStation 2
@@ -22,7 +22,7 @@
     ipaddress: 127.0.0.1
     created_at: 2016-11-13 18:14:22.580040+00:00
     updated_at: 2016-11-13 18:14:32.503028+00:00
-- model: reservations.instrument
+- model: reservations.thing
   pk: O5kWxGN9
   fields:
     name: PlayStation 3
@@ -32,7 +32,7 @@
     ipaddress: 127.0.0.1
     created_at: 2016-11-13 18:14:49.198362+00:00
     updated_at: 2016-11-13 18:14:57.453049+00:00
-- model: reservations.instrument
+- model: reservations.thing
   pk: 9qkZWGYE
   fields:
     name: PlayStation 4
@@ -43,7 +43,7 @@
     ipaddress: 127.0.0.1
     created_at: 2016-11-13 18:15:36.052848+00:00
     updated_at: 2016-11-13 18:15:36.052936+00:00
-- model: reservations.instrument
+- model: reservations.thing
   pk: g0GBYkB1
   fields:
     name: Xbox 360
@@ -53,13 +53,13 @@
     ipaddress: 127.0.0.1
     created_at: 2016-11-13 18:15:59.950418+00:00
     updated_at: 2016-11-13 18:15:59.950503+00:00
-- model: reservations.reservation
+- model: reservations.record
   pk: g5GmnbBq
   fields:
     name: James
     contact: '0001'
     remarks: I need to finish my homework...
-    instrument: g5GmnbBq
+    thing: g5GmnbBq
     owner: [admin]
     start_at: 2016-11-13 18:16:35+00:00
     end_at: 2016-11-13 20:16:37+00:00
@@ -67,13 +67,13 @@
     ipaddress: 127.0.0.1
     created_at: 2016-11-13 18:16:43.521896+00:00
     updated_at: 2016-11-13 18:16:43.521947+00:00
-- model: reservations.reservation
+- model: reservations.record
   pk: O5kWxGN9
   fields:
     name: Peter
     contact: '0002'
     remarks: ''
-    instrument: g5GmnbBq
+    thing: g5GmnbBq
     owner: [admin]
     start_at: 2016-11-13 20:17:00+00:00
     end_at: 2016-11-13 22:17:04+00:00
@@ -81,13 +81,13 @@
     ipaddress: 127.0.0.1
     created_at: 2016-11-13 18:17:09.178200+00:00
     updated_at: 2016-11-13 18:17:09.178256+00:00
-- model: reservations.reservation
+- model: reservations.record
   pk: 9qkZWGYE
   fields:
     name: Ted
     contact: '0003'
     remarks: ''
-    instrument: g5GmnbBq
+    thing: g5GmnbBq
     owner: [admin]
     start_at: 2016-11-13 12:17:25+00:00
     end_at: 2016-11-13 16:17:30+00:00
@@ -95,13 +95,13 @@
     ipaddress: 127.0.0.1
     created_at: 2016-11-13 18:17:34.705659+00:00
     updated_at: 2016-11-13 18:17:34.705719+00:00
-- model: reservations.reservation
+- model: reservations.record
   pk: g0GBYkB1
   fields:
     name: Alice
     contact: 0009
     remarks: ''
-    instrument: 9qkZWGYE
+    thing: 9qkZWGYE
     owner: [admin]
     start_at: 2016-11-13 00:17:48+00:00
     end_at: 2016-11-13 18:17:53+00:00

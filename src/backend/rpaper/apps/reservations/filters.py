@@ -1,8 +1,8 @@
 from django_filters import rest_framework as filters
-from .models import Reservation
+from .models import Record
 
 
-class ReservationFilter(filters.FilterSet):
+class RecordFilter(filters.FilterSet):
     since = filters.IsoDateTimeFilter(
         name='end_at',
         lookup_expr='gte',
@@ -13,5 +13,5 @@ class ReservationFilter(filters.FilterSet):
     )
 
     class Meta:
-        model = Reservation
+        model = Record
         fields = ['since', 'until']

@@ -1,8 +1,8 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 from ..models import (
-    Instrument,
-    Reservation,
+    Thing,
+    Record,
 )
 
 
@@ -15,11 +15,11 @@ class UserSerializer(serializers.ModelSerializer):
         )
 
 
-class ReservationSerializer(serializers.ModelSerializer):
+class RecordSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Reservation
+        model = Record
         fields = (
-            'instrument',
+            'thing',
             'pk',
             'name',
             'contact',
@@ -27,16 +27,16 @@ class ReservationSerializer(serializers.ModelSerializer):
             'start_at',
             'end_at',
         )
-        read_only_fields = ('instrument', 'pk',)
+        read_only_fields = ('thing', 'pk',)
 
     pk = serializers.RegexField('\w+', read_only=True)
 
 
-class ReservationSerializerWithCredential(ReservationSerializer):
+class RecordSerializerWithCredential(RecordSerializer):
     class Meta:
-        model = Reservation
+        model = Record
         fields = (
-            'instrument',
+            'thing',
             'pk',
             'name',
             'contact',
@@ -45,12 +45,12 @@ class ReservationSerializerWithCredential(ReservationSerializer):
             'end_at',
             'credential',
         )
-        read_only_fields = ('instrument', 'pk', 'credential')
+        read_only_fields = ('thing', 'pk', 'credential')
 
 
-class InstrumentSerializer(serializers.ModelSerializer):
+class ThingSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Instrument
+        model = Thing
         fields = (
             'pk',
             'name',
