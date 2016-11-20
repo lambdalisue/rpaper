@@ -25,3 +25,15 @@ rpaper
     :alt: Document
 
 Work in progress.
+
+
+```
+# Install requirements, DB scheme, and debug data (python3/pip/npm are required)
+./script/init.sh
+# Start redis and development server
+honcho start
+```
+
+Then
+
+http://localhost:8000/reservations/g5GmnbBq/?#2016/11
