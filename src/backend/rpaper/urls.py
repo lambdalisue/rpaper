@@ -22,6 +22,9 @@ from django.views.i18n import JavaScriptCatalog
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^jsi18n/$',
+        JavaScriptCatalog.as_view(),
+        name='javascript-catalog'),
     url(r'^api-auth/', include(
         'rest_framework.urls',
         namespace='rest_framework'
@@ -30,13 +33,10 @@ urlpatterns = [
         'rpaper.apps.reservations.api.urls',
         namespace='reservations-api',
     )),
-    url(r'', include(
+    url(r'^reservations/', include(
         'rpaper.apps.reservations.urls',
         namespace='reservations',
     )),
-    url(r'^jsi18n/$',
-        JavaScriptCatalog.as_view(),
-        name='javascript-catalog'),
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

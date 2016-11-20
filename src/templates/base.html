@@ -1,15 +1,14 @@
-<!doctype html>
-{% spaceless %}
-<meta charset="utf-8" />
+<!DOCTYPE html>
+<meta charset="utf-8">
 <title>{% block title %}{% endblock %}</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-<link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium'>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium">
 <link rel="stylesheet" href="https://code.getmdl.io/1.2.1/material.indigo-pink.min.css">
 <link rel="stylesheet" href="{{ STATIC_URL }}css/common.css">
 {% block links %}
 {% endblock %}
 
-<script defer src="{% url 'javascript-catalog' %}"></script>
+<script defer src="{% url 'javascript-catalog' %}" type="text/javascript"></script>
 <script defer src="https://code.getmdl.io/1.2.1/material.min.js"></script>
 <script defer src="{{ STATIC_URL }}js/common.js"></script>
 {% block scripts %}
@@ -20,5 +19,3 @@
 
 {% block post-scripts %}
 {% endblock %}
-
-{% endspaceless %}

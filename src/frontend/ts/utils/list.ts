@@ -1,6 +1,6 @@
-export function range(start, stop, step=1) {
+export function range(start: number, stop?: number, step: number=1): Array<number> {
   if (stop === undefined) {
-    stop = start;
+    stop = start - 1;
     start = 0;
   }
   if (start === undefined) {
@@ -14,4 +14,11 @@ export function range(start, stop, step=1) {
     start += step;
   }
   return arr;
+}
+
+export function sum<T extends string | number>(arr: Array<T>): T;
+export function sum(arr) {
+    return arr.reduce(function(prev, current, i, arr) {
+        return prev+current;
+    });
 }

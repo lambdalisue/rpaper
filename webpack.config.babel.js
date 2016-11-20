@@ -10,7 +10,7 @@ export default {
   cache: DEBUG,
   debug: DEBUG,
   target: 'web',
-  devtool: DEBUG ? 'source-map' : false,
+  devtool: DEBUG ? 'inline-source-map' : false,
 
   stats: {
     colors: true,
@@ -27,12 +27,11 @@ export default {
   entry: {
     'common': [
       'babel-polyfill',
-      'whatwg-fetch',
+      'array-includes/shim',
     ],
 
-    'instrument': [
-      'js/main',
-      'js/views/instrument',
+    'reservations': [
+      'ts/views/reservations',
     ],
   },
 
@@ -45,18 +44,23 @@ export default {
   },
 
   resolve: {
-    modulesDirectories: [
-      path.join(__dirname, 'node_modules'),
+    root: [
       path.join(__dirname, 'src/frontend'),
     ],
-    extensions: ['', '.js', '.tag', '.css', '.less'],
+    extensions: ['', '.js', '.ts', '.tag', '.css', '.less'],
   },
 
   module: {
     loaders: [
       {
         test: /\.js$/,
+        exclude: /node_modules/,
         loader: 'babel'
+      },
+      {
+        test: /\.ts$/,
+        exclude: /node_modules/,
+        loader: 'babel!ts'
       },
       {
         test: /\.tag$/,
@@ -65,37 +69,34 @@ export default {
       },
       {
         test: /\.css$/,
-        loader: ExtractTextPlugin.extract(
-          'style',
-          'css'
-        ),
+        exclude: /node_modules/,
+        loader: ExtractTextPlugin.extract('style', 'css'),
       },
       {
         test: /\.less$/,
-        loader: ExtractTextPlugin.extract(
-          'style',
-          'css!less'
-        ),
+        exclude: /node_modules/,
+        loader: ExtractTextPlugin.extract('style', 'css!less'),
       },
       {
         test: /\.(png|svg|jpg)(\?[a-z0-9=\.]+)?$/,
+        exclude: /node_modules/,
         loader: 'url-loader?limit=100000&publicPath=../&name=img/[hash].[ext]'
       },
       {
         test: /\.(woff2?|eot|ttf)(\?[a-z0-9=\.]+)?$/,
+        exclude: /node_modules/,
         loader: 'url-loader?limit=100000&publicPath=../&name=font/[hash].[ext]'
       },
     ]
   },
 
   plugins: [
-    new ExtractTextPlugin('css/[name].css'),
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.CommonsChunkPlugin('common', 'js/common.js'),
+    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /ja/),
     new webpack.ProvidePlugin({
       riot: 'riot',
     }),
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.ContextReplacementPlugin(
-      /moment[\/\\]locale$/, /ja/
-    ),
+    new ExtractTextPlugin('css/[name].css'),
   ],
 };

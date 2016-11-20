@@ -1,8 +1,7 @@
 {
+  "sourceRoot": "src/frontend/",
   "presets": [
     "es2015-riot"
   ],
-  "plugins": [
-    "add-module-exports"
-  ]
+  "plugins": []
 }

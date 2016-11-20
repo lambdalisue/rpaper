@@ -3,13 +3,13 @@
 {% block title %}Hello{% endblock %}
 
 {% block links %}
-<link rel="stylesheet" href="{{ STATIC_URL }}css/instrument.css">
+<link rel="stylesheet" href="{{ STATIC_URL }}css/reservations.css">
 {% endblock %}
 
 {% block scripts %}
-<script defer src="{{ STATIC_URL }}js/instrument.js"></script>
+<script defer src="{{ STATIC_URL }}js/reservations.js"></script>
 {% endblock %}
 
 {% block content %}
-<app pk="{{ pk }}" />
+<reservations-app pk="{{ pk }}">
 {% endblock %}
