@@ -27,12 +27,12 @@ rpaper
 Work in progress.
 
 
-```
-# Install requirements, DB scheme, and debug data (python3/pip/npm are required)
-./script/init.sh
-# Start redis and development server
-honcho start
-```
+.. code::
+
+  # Install requirements, DB scheme, and debug data (python3/pip/npm are required)
+  ./script/init.sh
+  # Start redis and development server
+  honcho start
 
 Then
 
